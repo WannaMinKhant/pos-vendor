@@ -6,11 +6,13 @@ import { Table,Button,Label,Spinner } from 'flowbite-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useGetCategoryQuery } from '../Services/Api/ApiSlice';
+import SkeletonTable from '../../Components/SkeletonTable';
 
 const Category = () => {
 
   const { data,isLoading,isSuccess,isError,refetch } = useGetCategoryQuery()
 
+  const [cate,setCate] = useState();
   const categories = [
     {
       id:1,
@@ -29,9 +31,16 @@ const Category = () => {
     },
   ]
 
+  // if(isLoading){
+    
+  // }else if(isSuccess){
+  //   setCate(data?.data)
+  // }else if(isError){
+
+  // }
 
   const isAuth = localStorage.getItem("auth");
-  const [cate,setCate] = useState(data?.data);
+ 
   const navigate = useNavigate();
   const categoryEng = useRef(null);
   const categoryMyan = useRef(null);
@@ -109,7 +118,9 @@ const Category = () => {
        <div>
        </div>
        {/* Category List Section */}
-       <div className='text-white font-poppins font-semibold mx-8 my-2'>
+      { isLoading ? 
+                        <SkeletonTable/>
+              :  <div className='text-white font-poppins font-semibold mx-8 my-2'>
        <Table className='shadow-lg'>
           <Table.Head className='border-gray-700 text-green-500 bg-gray-700'>
             <Table.HeadCell className='border-gray-700 text-green-200 bg-gray-500'>
@@ -130,35 +141,35 @@ const Category = () => {
           <Table.Body className="divide-y">
 
            { 
-            isLoading ? <div><Spinner aria-label="Default status example" /></div> : Object.keys(data?.data).map((key,i)=>(
-              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={data?.data[i].id}>
-                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                 {data?.data[i].id }
-                </Table.Cell>
-                <Table.Cell>
-                 { data?.data[i].cateName }
-                </Table.Cell>
-                <Table.Cell>
-                { data?.data[i].created_at }
-                </Table.Cell>
-                <Table.Cell>
-                  <div className='flex flex-row'>
-                    <div className='px-2 py-1 bg-green-300 text-green-500 rounded-md mx-4 cursor-pointer' onClick={()=>editCategory(data?.data[i])}>
-                       <FaEdit/>
-                    </div>
-                    <div className='px-2 py-1 bg-red-300 text-red-500 rounded-md cursor-pointer'>
-                    <FaTrash/>
+              Object.keys(data?.data).map((key,i)=>(
+                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={data?.data[i].id}>
+                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  {data?.data[i].id }
+                  </Table.Cell>
+                  <Table.Cell>
+                  { data?.data[i].cateName }
+                  </Table.Cell>
+                  <Table.Cell>
+                  { data?.data[i].created_at }
+                  </Table.Cell>
+                  <Table.Cell>
+                    <div className='flex flex-row'>
+                      <div className='px-2 py-1 bg-green-300 text-green-500 rounded-md mx-4 cursor-pointer' onClick={()=>editCategory(data?.data[i])}>
+                        <FaEdit/>
+                      </div>
+                      <div className='px-2 py-1 bg-red-300 text-red-500 rounded-md cursor-pointer'>
+                      <FaTrash/>
+                      </div>
+                      
                     </div>
                     
-                  </div>
-                  
-                </Table.Cell>
-              </Table.Row>
+                  </Table.Cell>
+                </Table.Row>
             ))}
 
           </Table.Body>
         </Table>
-       </div>
+       </div>}
     </div>
   )
 }

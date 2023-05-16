@@ -7,9 +7,6 @@ import { GiMoneyStack } from 'react-icons/gi'
 import { Link, useLocation } from 'react-router-dom'
 import { HiChartPie,HiInbox, HiUser,HiShoppingBag,HiArrowSmRight,HiTable} from 'react-icons/hi'
 
-
-
-
 const CustomSideBar = () => {
 
     const location = useLocation();
@@ -128,7 +125,7 @@ const CustomSideBar = () => {
   return (
     <div className={ `${!show ? 'md:w-52' : 'w-16' } bg-green-400 flex flex-col min-h-screen font-poppins select-none duration-5000 z-30 text-sm`}>
       <ul>
-        <li key={-1} className='px-4 py-4 bg-slate-600'>
+        <li key={-1} className='px-4 py-4 bg-gray-700'>
             <FaBars size={20} color='white' className='cursor-pointer' onClick={()=> setShow(!show)}/>
         </li>
         {
