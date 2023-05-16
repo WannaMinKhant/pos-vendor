@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { FaTrash, FaEdit } from 'react-icons/fa'
 import {IoMdAddCircleOutline} from 'react-icons/io'
-import { Table,Button,Label,Spinner } from 'flowbite-react';
+import { Table,Button,Label } from 'flowbite-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useGetCategoryQuery } from '../Services/Api/ApiSlice';
@@ -30,14 +30,6 @@ const Category = () => {
       myan:'လျှပ်စစ်ပစ္စည်း'
     },
   ]
-
-  // if(isLoading){
-    
-  // }else if(isSuccess){
-  //   setCate(data?.data)
-  // }else if(isError){
-
-  // }
 
   const isAuth = localStorage.getItem("auth");
  
@@ -118,9 +110,7 @@ const Category = () => {
        <div>
        </div>
        {/* Category List Section */}
-      { isLoading ? 
-                        <SkeletonTable/>
-              :  <div className='text-white font-poppins font-semibold mx-8 my-2'>
+      { isLoading ?  <SkeletonTable/> : <div className='text-white font-poppins font-semibold mx-8 my-2'>
        <Table className='shadow-lg'>
           <Table.Head className='border-gray-700 text-green-500 bg-gray-700'>
             <Table.HeadCell className='border-gray-700 text-green-200 bg-gray-500'>
@@ -158,11 +148,9 @@ const Category = () => {
                         <FaEdit/>
                       </div>
                       <div className='px-2 py-1 bg-red-300 text-red-500 rounded-md cursor-pointer'>
-                      <FaTrash/>
+                        <FaTrash/>
                       </div>
-                      
                     </div>
-                    
                   </Table.Cell>
                 </Table.Row>
             ))}
